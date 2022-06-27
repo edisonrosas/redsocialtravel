@@ -23,7 +23,7 @@ function SecondtStep({ cropImgSrc, message }) {
       <AddTagsToImage cropImgSrc={cropImgSrc} />
       <div>
         <Message size="large" color="blue">
-          Click on image to tag people
+          Escriba el lugar de la foto o del viaje (Actualmente: "Lima-Perú")
         </Message>
       </div>
 
@@ -32,7 +32,7 @@ function SecondtStep({ cropImgSrc, message }) {
       </div>
       <div>
         <Message size="large" color="blue">
-          Type @ to get suggestions
+
         </Message>
         <AddPostTextArea />
       </div>
@@ -62,7 +62,7 @@ class PostUploadPage extends Component {
 
   render() {
     let stepComponent = null;
-
+    console.log(this.props);
     const { canvasHasValue, cropImgSrc, step, uploading } = this.props.post;
     const { alert } = this.props;
 
@@ -74,7 +74,7 @@ class PostUploadPage extends Component {
     return (
       <div className="container">
         {uploading ? (
-          <div className="fullscreen-loader">Loading&#8230;</div>
+          <div className="fullscreen-loader">Cargando&#8230;</div>
         ) : null}
         {alert.type ? <Messages alert={alert} /> : null}
 
@@ -89,7 +89,7 @@ class PostUploadPage extends Component {
             fluid
             onClick={this.handlePreviousClick}
           >
-            Previous
+            Anterior
             <Icon name="left arrow" />
           </Button>
         ) : null}
@@ -101,7 +101,7 @@ class PostUploadPage extends Component {
             fluid
             onClick={this.handleNextClick}
           >
-            Next
+            Siguiente
             <Icon name="right arrow" />
           </Button>
         ) : null}

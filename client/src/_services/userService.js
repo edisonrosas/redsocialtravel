@@ -32,17 +32,18 @@ function login(email, password) {
       .catch(
         error => {
          // console.error('Error:', error)
-          return "Error de conexión.";
+          return JSON.parse(JSON.stringify({message: "Error de conexión" }));
         }
     ).then(
       (res) => 
       { 
-       /* console.log(res);
-        console.log(res.user  === undefined);
+        console.log(res);
+        /*console.log(res.user  === undefined);
         console.log(res.message  === undefined);
         console.log(res.user === "");
         console.log(res.message === "");*/
         if(res.user  !== undefined){
+          console.log("go")
           localStorage.setItem("user", JSON.stringify({ token: res.user.token }));
         }
         return res;
@@ -156,20 +157,52 @@ function register(user) {
 }
 
 function getUserData(queryParams) {
-  
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      Authorization: JSON.parse(localStorage.getItem("user")).token,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ...queryParams }),
-  };
-  return fetch("/api/user/getUserData", requestOptions)
-    .then(handleResponse)
-    .then((res) => {
+  try{
+    const requestOptions = {
+      mode:"cors",
+      method: "POST",
+      headers: {
+        Authorization: JSON.parse(localStorage.getItem("user")).token,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST'
+      },
+      body: JSON.stringify({ ...queryParams }),
+    }
+    console.log(JSON.stringify({ ...queryParams }))
+
+    return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/getUserData", requestOptions)
+    /*.then((response) => response.json())
+    .catch(
+      error => {
+        //console.log(response)
+       // console.log("error")
+       // console.error('Error:', error)
+       return JSON.parse(JSON.stringify({
+        estado: "Error",
+        message: "Error de conexión" }));
+      }
+    ).then((res) => {
+      console.log(res)
       return res;
-    });
+    });*/
+     /*
+    .then(handleResponse)
+    .catch(
+      error => {
+       // console.error('Error:', error)
+        return "Error de conexión.";
+      }).then((res) => {
+        console.log(res)
+      return res;
+    });*/
+ }catch (err){
+  console.log(localStorage)
+  console.log("error");
+    return JSON.parse(JSON.stringify({
+      estado: "Error",
+      message: "Error de conexión" }));
+  }
+
 
 }
 

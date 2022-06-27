@@ -6,7 +6,6 @@ import { alertActions } from "./actions/alertActions";
 import { notificationActions } from "./actions//notificationActions";
 import { PrivateRoute } from "./components/PrivateRoute";
 import "./styles/index.css";
-
 const NotFoundPage = lazy(() => import("./NotFoundPage/NotFoundPage"));
 const PasswordResetPage = lazy(() =>
   import("./PasswordResetPage/PasswordResetPage")
@@ -41,12 +40,14 @@ class App extends React.Component {
   };
 
   render() {
+    console.log(this.props)
     const { authentication } = this.props;
 
     return (
       <div onClick={this.handleNotificationPopupClose}>
         <Router history={history}>
-          <Suspense fallback={<div>Loading...</div>}>
+         
+          <Suspense fallback={<div>Cargando...</div>}>
             <Fragment>
               {authentication.loggedIn ? <Navbar /> : null}
               <Switch>

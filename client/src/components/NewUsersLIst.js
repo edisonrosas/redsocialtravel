@@ -34,10 +34,19 @@ class NewUsersList extends Component {
     const users = newUsers.users.map((user) => {
       return (
         <List.Item key={user._id}>
-          <Image
-            avatar
-            src={`/images/profile-picture/100x100/${user.profilePicture}`}
-          />
+          {user.profilePicture === "person.png" ? (
+                                   <Image
+                                   avatar
+                                   src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                 />
+                                  ) : (
+                                    <Image
+                                    avatar
+                                    src={user.profilePicture}
+                                  />
+          )}
+
+          
           <List.Content>
             <List.Header
               as={Link}
@@ -47,7 +56,7 @@ class NewUsersList extends Component {
             </List.Header>
 
             <span style={{ color: "#757575" }}>
-               Conectados {dayjs(user.date).fromNow()}
+               Conectado hace {dayjs(user.date).fromNow()}
             </span>
           </List.Content>
         </List.Item>

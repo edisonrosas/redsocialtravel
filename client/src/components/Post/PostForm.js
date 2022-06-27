@@ -8,15 +8,18 @@ import { debounce } from "throttle-debounce";
 
 function searchUser(q) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ q })
   };
 
-  return fetch("/api/user/searchByUsername", requestOptions).then(res => {
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/searchByUsername", requestOptions).then(res => {
     return res;
   });
 }
@@ -88,7 +91,7 @@ class PostForm extends Component {
           style={{ minHeight: 70, maxHeight: 70, marginBottom: "1%" }}
         />
         <Button
-          content="Add Comment"
+          content="Añadir comentario"
           labelPosition="left"
           icon="edit"
           primary

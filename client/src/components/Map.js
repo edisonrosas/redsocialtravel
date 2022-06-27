@@ -8,8 +8,8 @@ import { postActions } from "../actions/postActions";
 class Map extends Component {
   state = {
     viewport: {
-      latitude: 37.7577,
-      longitude: -122.4376,
+      latitude: -12,
+      longitude: -76.8333,
       zoom: 8
     },
     searchResultLayer: null

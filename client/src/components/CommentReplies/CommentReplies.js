@@ -70,7 +70,7 @@ class CommentReplies extends Component {
             style={{ cursor: "pointer", margin: "20px 0 20px" }}
           >
             <Icon name="arrow down" />{" "}
-            {collapsed ? repliesNum + " replies" : "Show less"}
+            {collapsed ? repliesNum + " Ver Respuestas" : "Ver menos"}
           </div>
         ) : null}
         <Comment.Group collapsed={collapsed}>
@@ -79,7 +79,7 @@ class CommentReplies extends Component {
             <Fragment>
               <Divider></Divider>
               <Button loading={fetching} onClick={this.fetchReplies}>
-                Load {repliesNum - replies[commentId].comments.length} more
+                Cargar {repliesNum - replies[commentId].comments.length} más
               </Button>
             </Fragment>
           ) : null}

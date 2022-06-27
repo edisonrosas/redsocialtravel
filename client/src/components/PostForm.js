@@ -222,7 +222,7 @@ class PostForm extends PureComponent {
           <div style={{ padding: "1% 0" }}>
             <label className="ui massive fluid icon button">
               <i className="file icon" />
-              Select Image
+              Seleccionar imagen
               <input
                 style={{ display: "none" }}
                 ref={this.fileInputRef}

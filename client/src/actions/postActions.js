@@ -56,8 +56,9 @@ function addPost(postData) {
 
     postService.addPost(postData).then(
       post => {
+        //console
         dispatch(success(post));
-        dispatch(alertActions.success("Post uploaded"));
+        dispatch(alertActions.success("Publicación subida"));
         dispatch({ type: postConstants.INIT_COMMENT, postId: post._id });
       },
       error => {
@@ -72,6 +73,8 @@ function addPost(postData) {
     return { type: postConstants.ADD_POST_SUCCESS, post };
   }
 }
+
+
 
 function addProfiePicture(postData) {
   return dispatch => {
@@ -103,9 +106,14 @@ function fetchPosts(queryParams) {
       response => {
         if (queryParams.initialFetch) {
           const { posts, total } = response[0];
-          posts.forEach(post =>
-            dispatch({ type: postConstants.INIT_COMMENT, postId: post._id })
+        //  console.log(response[0])
+          posts.forEach(post =>{
+              console.log(post);
+              dispatch({ type: postConstants.INIT_COMMENT, postId: post._id })
+            }
           );
+       /*   console.log(posts)
+          console.log(total[0])*/
           dispatch(success(posts, total[0], queryParams.initialFetch));
         } else {
           dispatch(success(response));

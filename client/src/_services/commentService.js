@@ -17,17 +17,20 @@ function logout() {
 
 function addComment(params) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: JSON.parse(localStorage.getItem("user")).token
+      Authorization: JSON.parse(localStorage.getItem("user")).token,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({
       ...params
     })
   };
 
-  return fetch("/api/comment/addComment/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/addComment/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -36,17 +39,20 @@ function addComment(params) {
 
 function addCommentReply(params) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: JSON.parse(localStorage.getItem("user")).token
+      Authorization: JSON.parse(localStorage.getItem("user")).token,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({
       ...params
     })
   };
 
-  return fetch("/api/comment/addCommentReply/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/addCommentReply/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -72,15 +78,18 @@ function getCommentReplies(commentId, queryParams) {
 
 function getPostComments(postId, queryParams) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: JSON.parse(localStorage.getItem("user")).token
+      Authorization: JSON.parse(localStorage.getItem("user")).token,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ postId, ...queryParams })
   };
 
-  return fetch("/api/comment/getComments/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/getComments/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;

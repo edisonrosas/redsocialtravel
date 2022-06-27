@@ -9,15 +9,28 @@ import { debounce } from "throttle-debounce";
 
 function searchUser(q) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ q })
   };
 
-  return fetch("/api/user/searchByUsername", requestOptions).then(res => {
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/searchByUsername", requestOptions).then((response) => response.json())
+  .catch(
+    error => {
+      console.log("error")
+     // console.error('Error:', error)
+     return JSON.parse(JSON.stringify({
+      estado: "Error",
+      message: "Error de conexión" }));
+    }
+  ).then((res) => {
+    console.log(res)
     return res;
   });
 }
@@ -44,12 +57,30 @@ class AddPostTextArea extends Component {
     const myFilename = "image." + imgSrcExt;
     const myNewCroppedFile = base64StringtoFile(imageData64, myFilename);
     const fd = new FormData();
-    fd.append("photo", myNewCroppedFile, myNewCroppedFile.name);
+    //console.log(this.state.value)
+    //console.log(myNewCroppedFile)
+    //console.log(JSON.stringify(divs))
+    console.log(myNewCroppedFile)
+    console.log(myNewCroppedFile.name)
+    fd.append("photo", myNewCroppedFile);
     fd.append("description", this.state.value);
     fd.append("tags", JSON.stringify(divs));
+
+
     Object.keys(location).forEach(key => fd.append(key, location[key]));
 
+    const fd2 = new FormData();
+    fd2.append("image", myNewCroppedFile, myNewCroppedFile.name);
+    //const valorfd = JSON.parse(JSON.stringify(fd))
+    //console.log(JSON.stringify(fd));
+    /*for (let obj of fd) {
+      console.log(obj);
+    }*/
+    console.log(fd.get("photo"))
+    //console.log(fd.get("description"))
+  
     dispatch(postActions.addPost(fd));
+
   };
 
   // text in input is "I want @ap"
@@ -81,7 +112,7 @@ class AddPostTextArea extends Component {
       <Fragment>
         <Form size="big" onSubmit={this.handleSubmit}>
           <Form.Field>
-            <label>Description</label>
+            <label>Describa el viaje, lugar y actividades</label>
             <TextInput
               maxOptions={8}
               offsetY={20}
@@ -90,7 +121,7 @@ class AddPostTextArea extends Component {
               onRequestOptions={this.debouncedRequestOptions}
               options={suggestions}
               onChange={this.handleChange}
-              placeholder="Description"
+              placeholder="Descripcion"
               type="textarea"
               name="description"
               style={{ minHeight: 100, maxHeight: 100 }}
@@ -98,7 +129,7 @@ class AddPostTextArea extends Component {
           </Form.Field>
 
           <Button primary fluid size="big">
-            Upload
+            Subir
           </Button>
         </Form>
       </Fragment>

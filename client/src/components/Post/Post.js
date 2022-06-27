@@ -51,21 +51,21 @@ class Post extends Component {
     value: "",
     showTags: false,
     optionsLoggedIn: [
-      { key: "copy", icon: "copy", text: "Copy link", value: "copy" },
+      { key: "copy", icon: "copy", text: "Copiar enlace", value: "copy" },
       {
         key: "goto",
         icon: "paper plane outline",
-        text: "Go to post",
+        text: "Ver publicación",
         value: "goto"
       },
-      { key: "delete", icon: "delete", text: "Delete", value: "delete" }
+      { key: "delete", icon: "delete", text: "Borrar", value: "delete" }
     ],
     optionsNotLoggedIn: [
-      { key: "copy", icon: "copy", text: "Copy link", value: "copy" },
+      { key: "copy", icon: "copy", text: "Copiar enlace", value: "copy" },
       {
         key: "goto",
         icon: "paper plane outline",
-        text: "Go to post",
+        text: "Ver publicación",
         value: "goto"
       }
     ]
@@ -165,10 +165,20 @@ class Post extends Component {
         <div className="post-header">
           <div className="post-label">
             <div className="label-image">
-              <img
-                src={`/images/profile-picture/100x100/${post.author[0].profilePicture}`}
-                alt=""
-              />
+            {post.author[0].profilePicture === "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt="foto_perfil.png"
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={post.author[0].profilePicture}
+                                   alt=""
+                                 />
+                                  )}
+
+            
             </div>
             <div className="label-info">
               <div className="label-username">
@@ -198,9 +208,9 @@ class Post extends Component {
           </div>
           <div className="post-options">
             <Modal open={open} onClose={this.close} size="tiny">
-              <Modal.Header>Delete Your Post</Modal.Header>
+              <Modal.Header>Borrar publicación</Modal.Header>
               <Modal.Content>
-                <p>Are you sure you want to delete your post</p>
+                <p>¿Seguro que deseas borrar la publicación?</p>
               </Modal.Content>
               <Modal.Actions>
                 <Button negative onClick={this.close}>
@@ -246,14 +256,14 @@ class Post extends Component {
         <div className="post-image">
           {this.state.loadedImg ? null : (
             <Segment loading>
-              <Image src={`/images/post-images/thumbnail/${post.photo}`} />
+              <Image src={post.photo} />
             </Segment>
           )}
           <img
             onClick={this.handleToggleTags}
             onLoad={() => this.setState({ loadedImg: true })}
             style={this.state.loadedImg ? {} : { display: "none" }}
-            src={`/images/post-images/${post.photo}`}
+            src={post.photo}
             alt=""
           />
           {ribbon}

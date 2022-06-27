@@ -24,6 +24,7 @@ class Feed extends Component {
   };
 
   render() {
+    console.log(this.props)
     const { loadingUser, posts, totalPosts } = this.props;
     const hasMore = posts.length === totalPosts ? false : true;
     const feedPosts = posts.map((post) => (
@@ -39,12 +40,12 @@ class Feed extends Component {
         dataLength={posts.length} //This is important field to render the next data
         next={this.fetchData}
         hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
+        loader={<h4>Cargando...</h4>}
         endMessage={
           <Divider horizontal>
             <Header as="h4">
               <Icon name="eye" />
-              Yay! You have seen it all
+              Nada por ver todavia
             </Header>
           </Divider>
         }

@@ -135,7 +135,7 @@ class ProfilePictureForm extends PureComponent {
             <div style={{ marginBottom: "1%" }}>
               <label className="ui icon button fluid">
                 <i className="file icon " />
-                Change Image
+                Cambiar imagen
                 <input
                   style={{ display: "none" }}
                   ref={this.fileInputRef}
@@ -155,7 +155,7 @@ class ProfilePictureForm extends PureComponent {
             />
             {cropped ? (
               <Button primary fluid onClick={this.handleUpload}>
-                Upload
+                Subir imagen
               </Button>
             ) : null}
 
@@ -168,7 +168,7 @@ class ProfilePictureForm extends PureComponent {
           <div>
             <label className="ui icon button fluid">
               <i className="file icon" />
-              Select Image
+              Seleccionar imagen
               <input
                 style={{ display: "none" }}
                 ref={this.fileInputRef}

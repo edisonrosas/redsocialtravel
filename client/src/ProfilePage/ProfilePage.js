@@ -64,6 +64,7 @@ class ProfilePage extends Component {
   };
 
   render() {
+   
     const { user, alert } = this.props;
     const hasMore =
       user.data.postsCount === user.data.posts.length ? false : true;
@@ -75,7 +76,7 @@ class ProfilePage extends Component {
           trigger={
             <div className="gallery-item">
               <img
-                src={`/images/post-images/thumbnail/${post.photo}`}
+                src={post.photo}
                 className="gallery-image"
                 alt=""
               />
@@ -83,11 +84,11 @@ class ProfilePage extends Component {
               <div className="gallery-item-info">
                 <ul>
                   <li className="gallery-item-likes">
-                    <span className="visually-hidden">Likes:</span>
+                    <span className="visually-hidden">Me gustas:</span>
                     <Icon name="heart" /> {post.likes}
                   </li>
                   <li className="gallery-item-comments">
-                    <span className="visually-hidden">Comments:</span>
+                    <span className="visually-hidden">Comentarios:</span>
                     <Icon name="comment" /> {post.comments}
                   </li>
                 </ul>
@@ -148,10 +149,19 @@ class ProfilePage extends Component {
                 {alert.type ? <Messages alert={alert} /> : null}
                 <div className="profile">
                   <div className="profile-image">
-                    <img
-                      src={`/images/profile-picture/100x100/${user.data.profilePicture}`}
-                      alt=""
-                    />
+               
+                              {user.data.profilePicture === "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt="foto_perfil.png"
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={user.data.profilePicture}
+                                   alt=""
+                                 />
+                                  )}
                   </div>
 
                   <div className="profile-user-settings">
@@ -165,7 +175,7 @@ class ProfilePage extends Component {
                       icon
                       labelPosition="right"
                     >
-                      Add post
+                      Nuevo Post
                       <Icon name="upload" />
                     </Button>
                     <EditProfileModal>
@@ -175,7 +185,7 @@ class ProfilePage extends Component {
                         icon
                         labelPosition="right"
                       >
-                        Profile settings
+                        Editar Perfil
                         <Icon name="setting" />
                       </Button>
                     </EditProfileModal>
@@ -186,7 +196,7 @@ class ProfilePage extends Component {
                         <span className="profile-stat-count">
                           {user.data.postsCount}
                         </span>{" "}
-                        posts
+                        Publicaciones
                       </li>
                       <Modal
                         trigger={
@@ -194,11 +204,11 @@ class ProfilePage extends Component {
                             <span className="profile-stat-count">
                               {user.data.followers}
                             </span>{" "}
-                            followers
+                            Seguidores
                           </li>
                         }
                       >
-                        <Modal.Header>Followers</Modal.Header>
+                        <Modal.Header>Seguidores</Modal.Header>
                         <Modal.Content scrolling>
                           <Modal.Description>
                             <List verticalAlign="middle" size="huge">
@@ -213,11 +223,11 @@ class ProfilePage extends Component {
                             <span className="profile-stat-count">
                               {user.data.followings}
                             </span>{" "}
-                            following
+                            Siguiendo
                           </li>
                         }
                       >
-                        <Modal.Header>Following</Modal.Header>
+                        <Modal.Header>Siguiendo</Modal.Header>
                         <Modal.Content scrolling>
                           <Modal.Description>
                             <List verticalAlign="middle" size="huge">
@@ -245,7 +255,7 @@ class ProfilePage extends Component {
               <div className="container">
                 {user.data.postsCount === 0 ? (
                   <Message info size="large">
-                    You have no posts. Share your first picture:{" "}
+                    No tienes publicaciones:{" "}
                     <Button
                       as={Link}
                       to="/posts/upload"
@@ -254,7 +264,7 @@ class ProfilePage extends Component {
                       icon
                       labelPosition="right"
                     >
-                      Add post
+                      Añadir publicación
                       <Icon name="upload" />
                     </Button>
                   </Message>
@@ -264,7 +274,7 @@ class ProfilePage extends Component {
                     dataLength={user.data.posts.length} //This is important field to render the next data
                     next={this.fetchData}
                     hasMore={hasMore}
-                    loader={<h4>Loading...</h4>}
+                    loader={<h4>Cargando...</h4>}
                   >
                     {posts}
                   </InfiniteScroll>

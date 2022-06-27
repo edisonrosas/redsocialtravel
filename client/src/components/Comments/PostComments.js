@@ -77,14 +77,14 @@ class PostComments extends Component {
             onScroll={e => this.handleScroll(e, hasMore)}
             style={{ overflow: "auto", maxHeight: "600px" }}
           >
-            {fetching ? <p>loading...</p> : null}
+            {fetching ? <p>Cargando...</p> : null}
             {postComments.length ? postComments : null}
 
             {fetchedComments.length && hasMore ? (
               <Fragment>
                 <Divider></Divider>
                 <Button loading={fetching} onClick={this.fetchData}>
-                  Load {post.commentsCount - fetchedComments.length} more
+                  Cargar {post.commentsCount - fetchedComments.length} más
                 </Button>
               </Fragment>
             ) : null}

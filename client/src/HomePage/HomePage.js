@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Feed from "../components/Post/Feed";
 import { NewUsersList } from "../components/NewUsersLIst";
-
+import  { Navbar }  from "../components/Navbar";
+//
 class HomePage extends Component {
   componentDidMount = () => {
     document.title = "Viajes - Red Social";
@@ -10,13 +11,14 @@ class HomePage extends Component {
 
   render() {
     return (
+      
       <div className="container" id="homepage-container">
         <div id="left-container" className="section">
           <NewUsersList></NewUsersList>
         </div>
 
         <div id="right">
-          <Feed />
+        <Feed />
         </div>
       </div>
     );

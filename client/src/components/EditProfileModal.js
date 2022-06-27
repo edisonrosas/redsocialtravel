@@ -23,7 +23,7 @@ class ImageCropModal extends Component {
           <Button size="big" content="Update profile picture" primary fluid />
         }
       >
-        <Modal.Header>Select profile picture</Modal.Header>
+        <Modal.Header>Seleccionar imagen de perfil</Modal.Header>
         <Modal.Content>
           <ProfilePictureForm />
         </Modal.Content>
@@ -70,7 +70,7 @@ class EditProfileModal extends Component {
     const { updaingUser, hasError } = this.props;
     return (
       <Modal trigger={this.props.children} style={{ color: "reda" }}>
-        <Modal.Header>Edit profile</Modal.Header>
+        <Modal.Header>Editar perfil</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             {hasError ? (

@@ -23,18 +23,22 @@ mention(linkify);
 
 function searchUser(q) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ q })
   };
 
-  return fetch("/api/user/searchByUsername", requestOptions).then(res => {
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/searchByUsername", requestOptions).then(res => {
     return res;
   });
 }
+
 
 const linkifyOptions = {
   formatHref: function(href, type) {
@@ -119,9 +123,17 @@ class PostComment extends Component {
 
     return (
       <Comment>
-        <Comment.Avatar
-          src={`/images/profile-picture/100x100/${comment.author[0].profilePicture}`}
-        />
+ 
+    {comment.author[0].profilePicture === "person.png" ? ( 
+                                   <Comment.Avatar
+                                   src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                  />
+                                  ) : (
+                                    <Comment.Avatar
+                                    src={comment.author[0].profilePicture}
+                                  />
+                                  )}
+
         <Comment.Content>
           <Comment.Author
             as={Link}
@@ -141,7 +153,7 @@ class PostComment extends Component {
           </Comment.Text>
           <Comment.Actions>
             <Comment.Action onClick={() => this.handleFormToggle()}>
-              Reply
+              Responder
             </Comment.Action>
             <LikeComment
               comment={{
@@ -172,7 +184,7 @@ class PostComment extends Component {
               />
 
               <Button
-                content="Add Reply"
+                content="Añadir respuesta"
                 labelPosition="left"
                 icon="edit"
                 primary

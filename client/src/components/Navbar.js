@@ -16,12 +16,25 @@ function trigger(image, name) {
       <Image
         size="mini"
         avatar
-        src={"/images/profile-picture/100x100/" + image}
+        src={image}
       />{" "}
       {name}
     </span>
   );
 }
+function getProfileDefault(name) {
+  return (
+    <span>
+      <Image
+        size="mini"
+        avatar
+        src={"https://cdn-icons-png.flaticon.com/512/711/711769.png"}
+      />{" "}
+      {name}
+    </span>
+  );
+}
+
 
 function getUserDataF(path, cb) {
   const params = {
@@ -46,14 +59,14 @@ class Navbar extends Component {
       options: [
         {
           key: "user",
-          text: "Account",
+          text: "Ver Cuenta",
           icon: "user",
           value: "profile",
           active: false,
         },
         {
           key: "sign-out",
-          text: "Sign Out",
+          text: "Salirt",
           icon: "sign out",
           value: "login",
           active: false,
@@ -128,7 +141,7 @@ class Navbar extends Component {
       return (
         <div className="main-navbar">
           <div className="nav-item logo">
-            <Link to={"/"}>SOCIAL-NETWORK</Link>
+            <Link to={"/"}>TravelGo</Link>
           </div>
           <div className="nav-item search-bar">
             <AutosuggestExample />
@@ -146,7 +159,7 @@ class Navbar extends Component {
                     as={Link}
                     to="/messages/chat"
                   >
-                    <Icon name="facebook messenger" size="big" />
+                    <Icon name="chat" size="big" />
                     {user.data.messagesCount !== 0 ? (
                       <Label color="red" style={{ margin: 0 }}>
                         {user.data.messagesCount}
@@ -176,7 +189,43 @@ class Navbar extends Component {
                   </NotificationPopup>
 
                   {/* 7*/}
+
+                  {user.data.profilePicture === "person.png" ? (
+                                     <div>
+                                           <Menu.Item
+                    active={activePath === "/profile"}
+                    name="avatar"
+                    id="avatar-container"
+                  >
+                    <Dropdown
+                      trigger={getProfileDefault()}
+                      selectOnNavigation={false}
+                      options={options}
+                      icon={null}
+                      onClose={() => this.setState({ value: "" })}
+                      onChange={this.handleChange}
+                      value={value}
+                    />
+                  </Menu.Item>
                   <Menu.Item
+                    id="icon-container"
+                    active={activePath === "/profile"}
+                  >
+                    <Dropdown
+                      trigger={<Icon name="user" size="big" />}
+                      selectOnNavigation={false}
+                      options={options}
+                      icon={null}
+                      onClose={() => this.setState({ value: "" })}
+                      onChange={this.handleChange}
+                      value={value}
+                    />
+                  </Menu.Item>
+                                     </div>
+
+                                  ) : (
+                                        <div>
+                                         <Menu.Item
                     active={activePath === "/profile"}
                     name="avatar"
                     id="avatar-container"
@@ -205,6 +254,10 @@ class Navbar extends Component {
                       value={value}
                     />
                   </Menu.Item>
+                                     </div>
+                                  )}
+
+               
                 </Menu.Menu>
               </Menu.Menu>
             </Menu>

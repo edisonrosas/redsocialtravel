@@ -137,7 +137,7 @@ class AutosuggestExample extends Component {
     const { value, suggestions } = this.state;
     const { addTagPage, submitOnClick } = this.props;
     const inputProps = {
-      placeholder: "Search",
+      placeholder: "Buscar",
       value: submitOnClick ? "" : value, // when adding image tags
       onChange: this.onChange,
       onKeyDown: this.onKeyDown

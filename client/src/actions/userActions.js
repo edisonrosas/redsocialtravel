@@ -109,12 +109,13 @@ function login(email, password) {
 
     userService.login(email, password).then(
       (user) => {
-       /* console.log(user)
-        console.log(user.token)
+        //console.log(user);
+        /*console.log(user.token)
         console.log(user.message)*/
-        if(user.token !== undefined){
+        //console.log(user.user.token);
+        if(user.user !== undefined){
           setTimeout(function(){
-            dispatch(success(user.token));
+            dispatch(success(user.user.token));
             dispatch({ type: userConstants.GETUSER_SUCCESS, user });
           }, 1000);
         
@@ -151,6 +152,11 @@ function register(user) {
         error => {console.error('Error:', error)
         dispatch(failure("Error de conexión"));
         dispatch(alertActions.error("Error de conexión"));
+        return JSON.parse(JSON.stringify({
+          estado: "error",
+          message: "Error de conexión" 
+        }
+        ));
         }
     )
     .then(
@@ -211,52 +217,80 @@ function register(user) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function getUserData(queryParams) {
   return (dispatch) => {
     dispatch(request());
 
-    userService.getUserData(queryParams).then(
+    userService.getUserData(queryParams)
+    .then((response) => 
+      response.json())
+    .catch(
+      error => {
+        dispatch(failure("Error de conexion"));
+            dispatch(alertActions.error("Error de conexion"));
+        //console.log(response)
+       // console.log("error")
+       // console.error('Error:', error)
+      /* return JSON.parse(JSON.stringify({
+        estado: "Error",
+        message: "Error de conexion" }));*/
+      }
+    ).then((res) => {
+        console.log(res)
+        if (res.user ===  undefined){
+            dispatch(failure(res.message));
+            dispatch(alertActions.error(res.message));
+        }else{
+         // if(res.user.posts === undefined){
+         //   history.push("/login");
+          
+          //}else{
+        
+              //err obtener datos con token vencido
+            
+                res.user.posts &&
+                res.user.posts.forEach((post) =>
+                  dispatch({ type: postConstants.INIT_COMMENT, postId: post._id })
+                );
+                dispatch(success(res.user));
+              // setTimeout(()=>{
+              //console.log(res.user)
+            //}, 20);
+          //}
+        }
+    });
+    
+    
+    /*.then(
+      (res) => 
+      {
+
+        if (res.estado === "error"){
+            dispatch(failure(res.message));
+            dispatch(alertActions.error(res.message));
+        }else{
+          if(res.user.posts === undefined){
+            history.push("/login");
+          
+          }else{
+         
+              //err obtener datos con token vencido
+            
+                //res.user.posts &&
+                res.user.posts.forEach((post) =>
+                  dispatch({ type: postConstants.INIT_COMMENT, postId: post._id })
+                );
+                dispatch(success(res.user));
+              // setTimeout(()=>{
+              //console.log(res.user)
+            //}, 20);
+          }
+        }
+      }
+    )*/
+    /*
       (res) => {
+        console.log(res)
         res.user.posts &&
           res.user.posts.forEach((post) =>
             dispatch({ type: postConstants.INIT_COMMENT, postId: post._id })
@@ -266,8 +300,7 @@ function getUserData(queryParams) {
       (error) => {
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      }
-    );
+      }*/
   };
 
   function request() {

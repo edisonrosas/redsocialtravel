@@ -35,9 +35,15 @@ const linkifyOptions = {
 const CommentReply = ({ username, comment, post: { postId, photo } }) => {
   return (
     <Comment>
-      <Comment.Avatar
-        src={`/images/profile-picture/100x100/${comment.author[0].profilePicture}`}
-      />
+      {comment.author[0].profilePicture === "person.png" ? ( 
+                                   <Comment.Avatar
+                                   src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                  />
+                                  ) : (
+                                    <Comment.Avatar
+                                    src={comment.author[0].profilePicture}
+                                  />
+                                  )}
       <Comment.Content>
         <Comment.Author
           as={Link}
