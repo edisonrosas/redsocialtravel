@@ -64,9 +64,9 @@ const LikeCommentReply = ({
       </Modal>
       <Comment.Action onClick={handleCommentLike}>
         {commentReplyLikes.some(e => e === commentId) ? (
-          <Icon style={{ color: "#ed4956" }} name="heart" />
+          <Icon style={{ color: "#ed4956" }} name="thumbs up outline" />
         ) : (
-          <Icon name="heart" />
+          <Icon name="thumbs up outline" />
         )}
         Like
       </Comment.Action>

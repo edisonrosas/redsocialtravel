@@ -37,14 +37,14 @@ const LikePost = ({
         <Icon
           onClick={handlePostLike}
           style={{ color: "#ed4956", cursor: "pointer" }}
-          name="heart"
+          name="thumbs up outline"
           className="thumbs up outline"
         />
       ) : (
         <Icon
           onClick={handlePostLike}
           style={{ cursor: "pointer" }}
-          name="heart outline"
+          name="thumbs up outline"
           className="thumbs up outline"
         />
       )}

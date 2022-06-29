@@ -61,15 +61,18 @@ function addCommentReply(params) {
 
 function getCommentReplies(commentId, queryParams) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ commentId, ...queryParams })
   };
 
-  return fetch("/api/comment/getCommentReplies/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/getCommentReplies/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -98,15 +101,18 @@ function getPostComments(postId, queryParams) {
 
 function getCommentLikes(commentId) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ commentId })
   };
 
-  return fetch("/api/comment/getCommentLikes/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/getCommentLikes/", requestOptions)
     .then(handleResponse)
     .then(response => {
       return response;
@@ -115,15 +121,18 @@ function getCommentLikes(commentId) {
 
 function getCommentReplyLikes(commentId) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ commentId })
   };
 
-  return fetch("/api/comment/getCommentReplyLikes/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/getCommentReplyLikes/", requestOptions)
     .then(handleResponse)
     .then(response => {
       return response;
@@ -134,15 +143,18 @@ function likeComment(params) {
   delete params.commentLikes;
 
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ ...params })
   };
 
-  return fetch("/api/comment/likeComment/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/likeComment/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -152,9 +164,12 @@ function likeComment(params) {
 function likeCommentReply(params) {
   delete params.commentReplyLikes;
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -162,7 +177,7 @@ function likeCommentReply(params) {
     })
   };
 
-  return fetch("/api/comment/likeCommentReply/", requestOptions)
+  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/comment/likeCommentReply/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;

@@ -10,6 +10,8 @@ import { Button } from "semantic-ui-react";
 import { postActions } from "../actions/postActions";
 import { connect } from "react-redux";
 import { alertActions } from "../actions/alertActions";
+const AWS = require('aws-sdk');
+const uuid = require('uuid')
 
 const imageMaxSize = 10000000; // bytes
 const acceptedFileTypes =
@@ -28,6 +30,48 @@ const initialState = {
   },
 };
 
+
+
+
+
+
+
+const ID = 'AKIARMNPZ3AYQATX3XOI';
+const SECRET = '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';
+
+const BUCKET_NAME = 'redsocialviajes';
+const s3 = new AWS.S3({
+  accessKeyId: ID,
+  secretAccessKey: SECRET
+});
+
+const uploadFile = async (fileName, uuidName) => {
+  console.log(fileName);
+  const params = {
+      Bucket: BUCKET_NAME,
+      Key: uuidName,
+      ACL: "public-read",
+      Body: fileName,
+      ContentType: 'image/png',
+  };
+  
+  try{
+    await s3.putObject(params, function(err, data) {
+    if (err) {
+      console.log(err, err.stack);
+    } else {
+      //console.log(data)
+     // console.log(data.key + ' successfully uploaded to' + data.Location);
+      return data
+    }
+  });
+  }catch(err){
+    console.log(err)
+    return "Error"
+  }
+};
+
+
 class ProfilePictureForm extends PureComponent {
   imagePreviewCanvasRef = React.createRef();
   fileInputRef = React.createRef();
@@ -40,13 +84,15 @@ class ProfilePictureForm extends PureComponent {
   };
 
   handleOnCropChange = (crop) => {
+    console.log(this.state)
     this.setState({ crop: crop });
   };
 
   handleOnCropComplete = (crop, pixelCrop) => {
     const canvasRef = this.imagePreviewCanvasRef.current;
-    const { imgSrc } = this.state;
-    image64toCanvasRef(canvasRef, imgSrc, pixelCrop);
+    const { imgSrc2 } = this.state;
+    console.log(this.state)
+    image64toCanvasRef(canvasRef, imgSrc2, pixelCrop);
     this.setState({ cropped: true });
   };
 
@@ -59,13 +105,14 @@ class ProfilePictureForm extends PureComponent {
       const imageData64 = canvasRef.toDataURL("image/" + imgSrcExt);
       const myFilename = "previewFile." + imgSrcExt;
       // file to be uploaded
-      const myNewCroppedFile = base64StringtoFile(imageData64, myFilename);
+      /*const myNewCroppedFile = base64StringtoFile(imageData64, myFilename);
       const fd = new FormData();
-      fd.append("photo", myNewCroppedFile, myNewCroppedFile.name);
+      fd.append("photo", myNewCroppedFile, myNewCroppedFile.name);*/
 
-      fd.append("description", this.state.description);
+      //fd.append("description", this.state.description);
       const { dispatch } = this.props;
-      dispatch(postActions.addProfiePicture(fd));
+      console.log(imgSrc)
+      dispatch(postActions.addProfiePicture(imgSrc));
       this.setState(initialState);
     }
   };
@@ -107,15 +154,22 @@ class ProfilePictureForm extends PureComponent {
       if (isVerified) {
         // imageBase64Data
         const currentFile = files[0];
+       // console.log(currentFile)
         const myFileItemReader = new FileReader();
         myFileItemReader.addEventListener(
           "load",
           () => {
+            const uuidName = "perfil"+uuid()+".png";
+            uploadFile(currentFile,uuidName);
             // console.log(myFileItemReader.result)
+            //console.log(
+            const urlImg = "https://redsocialviajes.s3.amazonaws.com/"+uuidName;
+            console.log(urlImg)
             const myResult = myFileItemReader.result;
             this.setState({
-              imgSrc: myResult,
-              imgSrcExt: extractImageFileExtensionFromBase64(myResult),
+             imgSrc: urlImg,
+             imgSrc2: myResult
+             // imgSrcExt: extractImageFileExtensionFromBase64(myResult),
             });
           },
           false
@@ -127,7 +181,8 @@ class ProfilePictureForm extends PureComponent {
   };
 
   render() {
-    const { imgSrc, cropped } = this.state;
+    const { imgSrc,imgSrc2, cropped } = this.state;
+    console.log(this.state)
     return (
       <div>
         {imgSrc !== null ? (
@@ -148,12 +203,12 @@ class ProfilePictureForm extends PureComponent {
             </div>
 
             <ReactCrop
-              src={imgSrc}
+              src={imgSrc2}
               crop={this.state.crop}
               onComplete={this.handleOnCropComplete}
               onChange={this.handleOnCropChange}
             />
-            {cropped ? (
+            {imgSrc !== null ? (
               <Button primary fluid onClick={this.handleUpload}>
                 Subir imagen
               </Button>

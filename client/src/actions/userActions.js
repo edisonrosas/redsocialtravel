@@ -403,14 +403,15 @@ function getUserProfileData(username) {
     userService.getUserProfileData(username).then(
       (response) => {
         // if logged in user requested its profile
-
-        if (response.user.loggedInUser) {
+        console.log(response.user)
+        if (response.user.user.loggedInUser) {
           return history.push("/profile");
         }
+        
         document.title = "@" + response.user.username + " | social-network";
-        dispatch(success(response));
-        response.user.posts &&
-          response.user.posts.forEach((post) =>
+        dispatch(success(response.user));
+        response.user.user.posts &&
+          response.user.user.posts.forEach((post) =>
             dispatch({ type: postConstants.INIT_COMMENT, postId: post._id })
           );
       },

@@ -5,7 +5,12 @@ import { userActions } from "../actions/userActions";
 
 function FollowButton({ userId, user, dispatch }) {
   const handleFollowCLick = () => {
-    dispatch(userActions.followUser(userId));
+    console.log(user)
+    console.log("user id ", userId)
+
+      dispatch(userActions.followUser(userId));
+    
+
   };
 
   if (user._id === userId) {
@@ -20,7 +25,7 @@ function FollowButton({ userId, user, dispatch }) {
       onClick={handleFollowCLick}
       fluid
     >
-      unfollow
+      Dejar de Seguir
     </Button>
   ) : (
     <Button
@@ -29,7 +34,7 @@ function FollowButton({ userId, user, dispatch }) {
       onClick={handleFollowCLick}
       fluid
     >
-      follow
+      Seguir
     </Button>
   );
 }

@@ -115,12 +115,18 @@ class App extends React.Component {
                       history.push("/login");
                       window.location.reload();
                     }
-                    return (
-                      <UserProfile
-                        key={props.match.params.username}
-                        {...props}
-                      />
-                    );
+                   /* if(props.match.params.username == "profile"){
+                      history.push("/profile");
+                      window.location.reload();
+                    } */
+                      return (
+                        <UserProfile
+                          key={props.match.params.username}
+                          {...props}
+                        />
+                      );
+                    
+                   
                   }}
                 />
 

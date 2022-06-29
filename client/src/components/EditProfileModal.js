@@ -20,7 +20,7 @@ class ImageCropModal extends Component {
         onClose={this.close}
         size="small"
         trigger={
-          <Button size="big" content="Update profile picture" primary fluid />
+          <Button size="big" content="Cambiar foto de perfil" primary fluid />
         }
       >
         <Modal.Header>Seleccionar imagen de perfil</Modal.Header>
@@ -60,6 +60,7 @@ class EditProfileModal extends Component {
 
   handleSubmit = () => {
     const { dispatch } = this.props;
+    console.log(this.state)
     dispatch(userActions.updateUserData(this.state));
     this.setState({ isDisabled: true });
   };
@@ -87,8 +88,8 @@ class EditProfileModal extends Component {
               <Form.Group widths="equal">
                 <Form.Input
                   fluid
-                  label="First Name"
-                  placeholder="First Name"
+                  label="Nombre"
+                  placeholder="Nombre"
                   type="text"
                   name="firstName"
                   onChange={this.handleChange}
@@ -97,8 +98,8 @@ class EditProfileModal extends Component {
 
                 <Form.Input
                   fluid
-                  label="Last Name"
-                  placeholder="Last Name"
+                  label="Apellido"
+                  placeholder="Apellido"
                   type="text"
                   name="lastName"
                   onChange={this.handleChange}
@@ -108,8 +109,8 @@ class EditProfileModal extends Component {
               <Form.Group widths="equal">
                 <Form.Input
                   fluid
-                  label="Username"
-                  placeholder="Username"
+                  label="Usuario"
+                  placeholder="Usuario"
                   type="text"
                   name="username"
                   onChange={this.handleChange}
@@ -117,8 +118,8 @@ class EditProfileModal extends Component {
                 />
                 <Form.Input
                   fluid
-                  label="Email"
-                  placeholder="Email"
+                  label="Carreo electrónico"
+                  placeholder="Correo Electrónico"
                   type="text"
                   name="email"
                   onChange={this.handleChange}
@@ -127,8 +128,8 @@ class EditProfileModal extends Component {
               </Form.Group>
               <Form.TextArea
                 style={{ minHeight: 100, maxHeight: 100 }}
-                label="About"
-                placeholder="Tell us more about you..."
+                label="Sobre mí"
+                placeholder="Describe el tipo de viajes que haces, actividades o pasatiempos"
                 type="text"
                 name="bio"
                 onChange={this.handleChange}
@@ -137,7 +138,7 @@ class EditProfileModal extends Component {
               <Button
                 style={{ marginBottom: "1%" }}
                 size="big"
-                content="Update information"
+                content="Actualizar perfil"
                 disabled={this.state.isDisabled}
                 primary
                 fluid

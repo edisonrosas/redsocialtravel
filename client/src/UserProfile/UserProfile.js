@@ -57,6 +57,8 @@ class UserProfile extends Component {
   componentDidMount = () => {
     const { dispatch, userProfileData, match } = this.props;
     if (userProfileData.data.username !== match.params.username) {
+      console.log("buscando")
+      console.log()
       dispatch(userActions.getUserProfileData(match.params.username));
     }
   };
@@ -65,14 +67,16 @@ class UserProfile extends Component {
     const { dispatch, userProfileData } = this.props;
     const lastId =
       userProfileData.data.posts[userProfileData.data.posts.length - 1]._id;
-
+     // console.log(userProfileData.data)
     dispatch(
+    
       userActions.getUserPosts({ userId: userProfileData.data._id, lastId })
     );
   };
 
   render() {
     const { userProfileData, fetchingUserData, alert } = this.props;
+    console.log(userProfileData.data)
     const hasMore =
       userProfileData.data.postsCount === userProfileData.data.posts.length
         ? false
@@ -111,7 +115,7 @@ class UserProfile extends Component {
                       <Icon name="heart" /> {post.likes}
                     </li>
                     <li className="gallery-item-comments">
-                      <span className="visually-hidden">Comments:</span>
+                      <span className="visually-hidden">Commentarios:</span>
                       <Icon name="comment" /> {post.comments}
                     </li>
                   </ul>
@@ -142,7 +146,7 @@ class UserProfile extends Component {
               user={user}
             ></FollowingFollowerList>
           ))
-        : "No followings";
+        : "Este usuario aún no sigue a nadie";
 
       const followerList = userProfileData.data.followerUsers.length
         ? userProfileData.data.followerUsers.map(({ user }) => (
@@ -151,7 +155,7 @@ class UserProfile extends Component {
               user={user}
             ></FollowingFollowerList>
           ))
-        : "No followers";
+        : "Sin seguidores";
 
       return (
         <Fragment>
@@ -159,10 +163,21 @@ class UserProfile extends Component {
             <div className="container">
               <div className="profile">
                 <div className="profile-image">
-                  <img
-                    src={`/images/profile-picture/100x100/${userProfileData.data.profilePicture}`}
-                    alt=""
-                  />
+
+                {userProfileData.data.profilePicture === "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt="foto_perfil.png"
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={userProfileData.data.profilePicture}
+                                   alt="foto_perfil.png"
+                                 />
+                                  )}
+
+     
                 </div>
 
                 <div className="profile-user-settings">
@@ -181,7 +196,7 @@ class UserProfile extends Component {
                       <span className="profile-stat-count">
                         {userProfileData.data.postsCount}
                       </span>{" "}
-                      posts
+                      Publicaciones
                     </li>
                     <Modal
                       trigger={
@@ -189,11 +204,11 @@ class UserProfile extends Component {
                           <span className="profile-stat-count">
                             {userProfileData.data.followers}
                           </span>{" "}
-                          followers
+                          Seguidores
                         </li>
                       }
                     >
-                      <Modal.Header>Followers</Modal.Header>
+                      <Modal.Header>Seguidores</Modal.Header>
                       <Modal.Content scrolling>
                         <Modal.Description>
                           <List selection verticalAlign="middle" size="huge">
@@ -208,11 +223,11 @@ class UserProfile extends Component {
                           <span className="profile-stat-count">
                             {userProfileData.data.followings}
                           </span>{" "}
-                          following
+                          Siguiendo
                         </li>
                       }
                     >
-                      <Modal.Header>Following</Modal.Header>
+                      <Modal.Header>Siguiendo</Modal.Header>
                       <Modal.Content scrolling>
                         <Modal.Description>
                           <List selection verticalAlign="middle" size="huge">
@@ -243,7 +258,7 @@ class UserProfile extends Component {
             <div className="container">
               {userProfileData.data.postsCount === 0 ? (
                 <Message info size="large">
-                  This user has no posts yet.
+                  Este usuario aún no hizo una publicación
                 </Message>
               ) : (
                 <InfiniteScroll
@@ -251,7 +266,7 @@ class UserProfile extends Component {
                   dataLength={userProfileData.data.posts.length} //This is important field to render the next data
                   next={this.fetchData}
                   hasMore={hasMore}
-                  loader={<h4>Loading...</h4>}
+                  loader={<h4>Cargando...</h4>}
                 >
                   {posts}
                 </InfiniteScroll>

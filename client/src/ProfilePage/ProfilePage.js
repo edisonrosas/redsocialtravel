@@ -49,6 +49,7 @@ class ProfilePage extends Component {
 
   fetchData = () => {
     const { dispatch, user } = this.props;
+    console.log(user.data)
     const lastId = user.data.posts[user.data.posts.length - 1]._id;
     dispatch(userActions.getPosts({ userId: user.data._id, lastId }));
   };
@@ -68,6 +69,7 @@ class ProfilePage extends Component {
     const { user, alert } = this.props;
     const hasMore =
       user.data.postsCount === user.data.posts.length ? false : true;
+    
     const posts = user.data.posts.map(post => {
       return (
         <Modal
@@ -119,7 +121,7 @@ class ProfilePage extends Component {
             user={user}
           ></FollowingFollowerList>
         ))
-      : "No followings";
+      : "No estas siguiendo a nadie actualmente";
 
     const followerList = user.data.followerUsers.length
       ? user.data.followerUsers.map(({ user }) => (
@@ -128,7 +130,7 @@ class ProfilePage extends Component {
             user={user}
           ></FollowingFollowerList>
         ))
-      : "No followers";
+      : "Sin seguidores";
 
     return (
       <div className="main">

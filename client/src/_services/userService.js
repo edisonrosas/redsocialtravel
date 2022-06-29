@@ -15,6 +15,8 @@ export const userService = {
   getNewUsers,
 };
 
+
+const urlapi = "http://localhost:5000/socialtravelapp-e6988/us-central1/app";
 function login(email, password) {
 
 
@@ -28,7 +30,7 @@ function login(email, password) {
     body: JSON.stringify({ email, password }),
   };
 
-  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/login",requestOptions).then((res) => res.json())
+  return fetch(urlapi+"/api/user/login",requestOptions).then((res) => res.json())
       .catch(
         error => {
          // console.error('Error:', error)
@@ -65,11 +67,12 @@ function getNewUsers(params) {
     method: "POST",
     headers: { "Content-Type": "application/json" ,
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST'},
+    'Access-Control-Allow-Methods': 'POST'
+  },
     body: JSON.stringify({ ...params }),
   };
 
-  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/getNewUsers", requestOptions)
+  return fetch(urlapi+"/api/user/getNewUsers", requestOptions)
     .then((response) => response.json())
       .catch(
         error => {
@@ -87,10 +90,13 @@ function getNewUsers(params) {
 
 function resetPassword(data) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: "Bearer " + data.jwt,
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ ...data }),
   };
@@ -104,8 +110,11 @@ function resetPassword(data) {
 
 function sendVerificationEmail(email) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" ,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST'},
     body: JSON.stringify({ email }),
   };
   return fetch("/api/user/sendVerificationEmail/", requestOptions).then(
@@ -115,8 +124,11 @@ function sendVerificationEmail(email) {
 
 function sendforgotPasswordEmail(email) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" , 
+     'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST'},
     body: JSON.stringify({ email }),
   };
   return fetch("/api/user/sendforgotPasswordEmail/", requestOptions).then(
@@ -148,7 +160,7 @@ function register(user) {
     console.log(error.toString());
   });*/
   
-  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/signup", requestOptions)
+  return fetch(urlapi+"/api/user/signup", requestOptions)
 
   /*
   .then((response) => {
@@ -157,7 +169,7 @@ function register(user) {
 }
 
 function getUserData(queryParams) {
-  try{
+
     const requestOptions = {
       mode:"cors",
       method: "POST",
@@ -170,7 +182,7 @@ function getUserData(queryParams) {
     }
     console.log(JSON.stringify({ ...queryParams }))
 
-    return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/user/getUserData", requestOptions)
+    return fetch(urlapi+"/api/user/getUserData", requestOptions)
     /*.then((response) => response.json())
     .catch(
       error => {
@@ -195,29 +207,26 @@ function getUserData(queryParams) {
         console.log(res)
       return res;
     });*/
- }catch (err){
-  console.log(localStorage)
-  console.log("error");
-    return JSON.parse(JSON.stringify({
-      estado: "Error",
-      message: "Error de conexión" }));
-  }
 
 
 }
 
 function getPosts(queryParams) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ ...queryParams }),
   };
-  return fetch("/api/user/getPosts", requestOptions)
+  return fetch(urlapi+"/api/user/getPosts", requestOptions)
     .then(handleResponse)
     .then((res) => {
+      console.log(res)
       return res;
     });
 }
@@ -225,15 +234,18 @@ function getPosts(queryParams) {
 function updateUser(user) {
   delete user.isDisabled;
   const requestOptions = {
+    mode:"cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify(user),
   };
 
-  return fetch("/api/user/updateUser", requestOptions)
+  return fetch(urlapi+"/api/user/updateUser", requestOptions)
     .then(handleResponse)
     .then((user) => {
       localStorage.setItem("user", JSON.stringify({ token: user.token }));
@@ -245,15 +257,18 @@ function updateUser(user) {
 
 function followUser(userId) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ userId }),
   };
 
-  return fetch("/api/user/followUser", requestOptions)
+  return fetch(urlapi+"/api/user/followUser", requestOptions)
     .then(handleResponse)
     .then((user) => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -265,17 +280,21 @@ function followUser(userId) {
 
 function getUserProfileData(username) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ username: username.trim(), profilePage: true }),
   };
 
-  return fetch("/api/user/getProfilePageData", requestOptions)
+  return fetch(urlapi+"/api/user/getProfilePageData", requestOptions)
     .then(handleResponse)
     .then((user) => {
+      console.log(user)
       // store user details and jwt token in local storage to keep user logged in between page refreshes
       //localStorage.setItem("user", JSON.stringify(user));
       return user;
@@ -284,14 +303,17 @@ function getUserProfileData(username) {
 
 function getUserProfileFollowers(userId) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ userId }),
   };
-  return fetch("/api/user/getUserProfileFollowers", requestOptions)
+  return fetch(urlapi+"/api/user/getUserProfileFollowers", requestOptions)
     .then(handleResponse)
     .then((res) => {
       return res;
@@ -300,14 +322,17 @@ function getUserProfileFollowers(userId) {
 
 function getUserProfileFollowings(userId) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: JSON.stringify({ userId }),
   };
-  return fetch("/api/user/getUserProfileFollowings", requestOptions)
+  return fetch(urlapi+"/api/user/getUserProfileFollowings", requestOptions)
     .then(handleResponse)
     .then((res) => {
       return res;

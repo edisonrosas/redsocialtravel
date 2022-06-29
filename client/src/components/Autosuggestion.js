@@ -5,17 +5,25 @@ import { history } from "../_helpers/history";
 import { throttle } from "throttle-debounce";
 import { connect } from "react-redux";
 
+
+const urlapi = "http://localhost:5000/socialtravelapp-e6988/us-central1/app";
+
+
 function searchUser(q) {
   const requestOptions = {
+    mode : "cors",
     method: "POST",
     headers: {
       Authorization: JSON.parse(localStorage.getItem("user")).token,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
     },
     body: JSON.stringify({ q })
   };
 
-  return fetch("/api/user/searchByUsername", requestOptions).then(res => {
+  return fetch(urlapi+"/api/user/searchByUsername", requestOptions).then(res => {
+    console.log(res)
     return res;
   });
 }
@@ -28,7 +36,7 @@ function renderSuggestion({ firstName, lastName, username, profilePicture }) {
   return (
     <Link to={"/" + username}>
       <span className={"suggestion-content " + username}>
-        <img alt="" src={"/images/profile-picture/100x100/" + profilePicture} />
+        <img alt="" src={profilePicture} />
         <span className="autosuggestion-name">
           {username}
           <p>{`${firstName} ${lastName}`}</p>
@@ -46,7 +54,7 @@ function renderSuggestionForTags({
 }) {
   return (
     <span className={"suggestion-content " + username}>
-      <img alt="" src={"/images/profile-picture/100x100/" + profilePicture} />
+      <img alt="" src={profilePicture} />
       <span className="autosuggestion-name">
         {username}
         <p>{`${firstName} ${lastName}`}</p>

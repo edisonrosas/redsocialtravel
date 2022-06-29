@@ -82,6 +82,7 @@ function addProfiePicture(postData) {
 
     postService.addProfiePicture(postData).then(
       res => {
+        console.log(res)
         dispatch(success(res.user));
       },
       error => {

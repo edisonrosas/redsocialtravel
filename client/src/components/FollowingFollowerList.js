@@ -11,7 +11,13 @@ export default function FollowingFollowerList({
       <List.Content floated="right">
         <FollowButton userId={_id}></FollowButton>
       </List.Content>
-      <Image avatar src={`/images/profile-picture/100x100/${profilePicture}`} />
+      {profilePicture === "person.png" ? (
+                                   <Image avatar src="https://cdn-icons-png.flaticon.com/512/711/711769.png" />
+                                  ) : (
+                                    <Image avatar src={profilePicture} />
+                                  )}
+
+     
       <List.Content as={Link} to={"/" + username} style={{ color: "#3d3d3d" }}>
         {username}
       </List.Content>

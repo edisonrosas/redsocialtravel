@@ -13,6 +13,7 @@ export const postService = {
   getPost,
   logout
 };
+const urlapi = "http://localhost:5000/socialtravelapp-e6988/us-central1/app";
 
 function logout() {
   // remove user from local storage to log user out
@@ -249,10 +250,6 @@ const uploadFile = async (fileName, uuidName) => {
       //showModal('Upload Success!', data.key + ' successfully uploaded!');
     }
   });
-    
-/*
-  const {location} = data
-  console.log(location)*/
   }catch(err){
     console.log(err)
     return "Error"
@@ -260,15 +257,24 @@ const uploadFile = async (fileName, uuidName) => {
 };
 
 function addProfiePicture(postData) {
+
+  const jsondata = JSON.stringify({
+    "photo": postData
+  });
+
+  console.log(postData)
   const requestOptions = {
+    mode : "cors",
     method: "POST",
     headers: {
-      Authorization: JSON.parse(localStorage.getItem("user")).token
+      Authorization: JSON.parse(localStorage.getItem("user")).token,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
-    body: postData
+    body: jsondata
   };
 
-  return fetch("/api/user/addProfiePicture/", requestOptions)
+  return fetch(urlapi+"/api/user/addProfiePicture/", requestOptions)
     .then(handleResponse)
     .then(user => {
       return user;
