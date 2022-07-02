@@ -14,30 +14,39 @@ import { notificationActions } from "../actions/notificationActions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
+import 'dayjs/locale/es'
+dayjs.locale("es");
 dayjs.extend(relativeTime);
 
 function postLikeNotification({ _id, createdAt, sender, post }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+   {sender[0].profilePicture === "person.png" ? (
+ 
+                                   <Feed.Label
+                                   image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+                                 />
+                                  ) : (
+                                    <Feed.Label
+                                    image={sender[0].profilePicture}
+                                  />
+                                  )}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}>liked your</span>{" "}
-          <Link to={`/p/${post[0]._id}`}>post</Link>
+          <span style={{ fontWeight: "normal" }}>Le dio me gusta a tu </span>{" "}
+          <Link to={`/p/${post[0]._id}`}>Publicación</Link>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
         <Feed.Extra images>
           <Link to={`/p/${post[0]._id}`}>
             <Image
               rounded
-              src={`/images/post-images/thumbnail/${post[0].photo}`}
+              src={post[0].photo}
             />
+
           </Link>
         </Feed.Extra>
       </Feed.Content>
@@ -48,24 +57,31 @@ function postLikeNotification({ _id, createdAt, sender, post }) {
 function commentLikeNotification({ _id, createdAt, sender, comment, post }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+         {sender[0].profilePicture === "person.png" ? (
+ 
+ <Feed.Label
+ image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+/>
+) : (
+  <Feed.Label
+  image={sender[0].profilePicture}
+/>
+)}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}>liked your comment</span>{" "}
-          {comment[0].text} <span style={{ fontWeight: "normal" }}>on</span>{" "}
-          <Link to={`/p/${post[0]._id}`}>post</Link>
+          <span style={{ fontWeight: "normal" }}>Le dio me gusta a tu comentario </span>{" "}
+          {comment[0].text} <span style={{ fontWeight: "normal" }}>en</span>{" "}
+          <Link to={`/p/${post[0]._id}`}>Publicación</Link>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
         <Feed.Extra images>
           <Link to={`/p/${post[0]._id}`}>
             <Image
               rounded
-              src={`/images/post-images/thumbnail/${post[0].photo}`}
+              src={post[0].photo}
             />
           </Link>
         </Feed.Extra>
@@ -77,24 +93,31 @@ function commentLikeNotification({ _id, createdAt, sender, comment, post }) {
 function likeCommentReplyNotification({ _id, createdAt, sender, reply, post }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+         {sender[0].profilePicture === "person.png" ? (
+ 
+                                   <Feed.Label
+                                   image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+                                 />
+                                  ) : (
+                                    <Feed.Label
+                                    image={sender[0].profilePicture}
+                                  />
+                                  )}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}>liked your reply</span>{" "}
-          {reply[0].text} <span style={{ fontWeight: "normal" }}>on</span>{" "}
-          <Link to={`/p/${post[0]._id}`}>post</Link>
+          <span style={{ fontWeight: "normal" }}>Le dio me gusta a tu respuesta</span>{" "}
+          {reply[0].text} <span style={{ fontWeight: "normal" }}>en</span>{" "}
+          <Link to={`/p/${post[0]._id}`}>Publicación</Link>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
         <Feed.Extra images>
           <Link to={`/p/${post[0]._id}`}>
             <Image
               rounded
-              src={`/images/post-images/thumbnail/${post[0].photo}`}
+              src={post[0].photo}
             />
           </Link>
         </Feed.Extra>
@@ -106,23 +129,30 @@ function likeCommentReplyNotification({ _id, createdAt, sender, reply, post }) {
 function postTaggedNotification({ _id, createdAt, sender, post }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+         {sender[0].profilePicture === "person.png" ? (
+ 
+ <Feed.Label
+ image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+/>
+) : (
+  <Feed.Label
+  image={sender[0].profilePicture}
+/>
+)}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}> tagged you on</span>{" "}
-          <Link to={`/p/${post[0]._id}`}>post</Link>
+          <span style={{ fontWeight: "normal" }}> Te etiquetó en</span>{" "}
+          <Link to={`/p/${post[0]._id}`}>Publicación</Link>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
         <Feed.Extra images>
           <Link to={`/p/${post[0]._id}`}>
             <Image
               rounded
-              src={`/images/post-images/thumbnail/${post[0].photo}`}
+              src={post[0].photo}
             />
           </Link>
         </Feed.Extra>
@@ -134,23 +164,30 @@ function postTaggedNotification({ _id, createdAt, sender, post }) {
 function commentTaggedNotification({ _id, createdAt, sender, post }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+         {sender[0].profilePicture === "person.png" ? (
+ 
+ <Feed.Label
+ image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+/>
+) : (
+  <Feed.Label
+  image={sender[0].profilePicture}
+/>
+)}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}>mentioned you on</span>{" "}
-          <Link to={`/p/${post[0]._id}`}>post</Link>
+          <span style={{ fontWeight: "normal" }}>Te mencionó en</span>{" "}
+          <Link to={`/p/${post[0]._id}`}>Publicación</Link>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
         <Feed.Extra images>
           <Link to={`/p/${post[0]._id}`}>
             <Image
               rounded
-              src={`/images/post-images/thumbnail/${post[0].photo}`}
+              src={post[0].photo}
             />
           </Link>
         </Feed.Extra>
@@ -162,24 +199,31 @@ function commentTaggedNotification({ _id, createdAt, sender, post }) {
 function addCommentNotification({ _id, createdAt, sender, comment, post }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+         {sender[0].profilePicture === "person.png" ? (
+ 
+ <Feed.Label
+ image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+/>
+) : (
+  <Feed.Label
+  image={sender[0].profilePicture}
+/>
+)}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}>commented</span>{" "}
-          {comment[0].text} <span style={{ fontWeight: "normal" }}>on</span>{" "}
-          <Link to={`/p/${post[0]._id}`}>post</Link>
+          <span style={{ fontWeight: "normal" }}>Comentó </span>{" "}
+          {comment[0].text} <span style={{ fontWeight: "normal" }}>en</span>{" "}
+          <Link to={`/p/${post[0]._id}`}>Publicación</Link>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
         <Feed.Extra images>
           <Link to={`/p/${post[0]._id}`}>
             <Image
               rounded
-              src={`/images/post-images/thumbnail/${post[0].photo}`}
+              src={post[0].photo}
             />
           </Link>
         </Feed.Extra>
@@ -191,15 +235,22 @@ function addCommentNotification({ _id, createdAt, sender, comment, post }) {
 function followNotification({ _id, createdAt, sender }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+        {sender[0].profilePicture === "person.png" ? (
+ 
+ <Feed.Label
+ image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+/>
+) : (
+  <Feed.Label
+  image={sender[0].profilePicture}
+/>
+)}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}>followed you</span>
+          <span style={{ fontWeight: "normal" }}>Te sigue ahora</span>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
       </Feed.Content>
@@ -217,25 +268,32 @@ function commentReplyNotification({
 }) {
   return (
     <Feed.Event key={_id}>
-      <Feed.Label
-        image={`/images/profile-picture/100x100/${sender[0].profilePicture}`}
-      />
+        {sender[0].profilePicture === "person.png" ? (
+ 
+ <Feed.Label
+ image={`https://cdn-icons-png.flaticon.com/512/711/711769.png`}
+/>
+) : (
+  <Feed.Label
+  image={sender[0].profilePicture}
+/>
+)}
       <Feed.Content>
         <Feed.Summary>
           <Feed.User as={Link} to={"/" + sender[0].username}>
             {sender[0].username}
           </Feed.User>{" "}
-          <span style={{ fontWeight: "normal" }}>replied</span> {reply[0].text}{" "}
-          <span style={{ fontWeight: "normal" }}>to</span> {comment[0].text}
-          <span style={{ fontWeight: "normal" }}> on </span>
-          <Link to={`/p/${post[0]._id}`}>post</Link>
+          <span style={{ fontWeight: "normal" }}>Respondio</span> {reply[0].text}{" "}
+          <span style={{ fontWeight: "normal" }}>a</span> {comment[0].text}
+          <span style={{ fontWeight: "normal" }}> en </span>
+          <Link to={`/p/${post[0]._id}`}>Publicación</Link>
           <Feed.Date>{dayjs(createdAt).fromNow()}</Feed.Date>
         </Feed.Summary>
         <Feed.Extra images>
           <Link to={`/p/${post[0]._id}`}>
             <Image
               rounded
-              src={`/images/post-images/thumbnail/${post[0].photo}`}
+              src={post[0].photo}
             />
           </Link>
         </Feed.Extra>
@@ -298,10 +356,10 @@ const NotificationPopup = ({
               hasMore={
                 allNotificationsCount === notifications.length ? false : true
               }
-              loader={<h4>Loading...</h4>}
+              loader={<h4>Cargando...</h4>}
               endMessage={
                 <Divider horizontal>
-                  <Header as="h5">Yay! You have seen it all</Header>
+                  <Header as="h5">No hay más notificaciones</Header>
                 </Divider>
               }
             >

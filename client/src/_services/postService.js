@@ -33,7 +33,7 @@ function fetchPosts(queryParams) {
     body: JSON.stringify({ ...queryParams })
   };
 
-  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/post/getPosts", requestOptions)
+  return fetch(urlapi+"/api/post/getPosts", requestOptions)
     .then(handleResponse)
     .then(response => {
       console.log(response.data);
@@ -43,15 +43,18 @@ function fetchPosts(queryParams) {
 
 function getPostLikes(postId) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ postId })
   };
 
-  return fetch("/api/post/getPostLikes/", requestOptions)
+  return fetch(urlapi+"/api/post/getPostLikes/", requestOptions)
     .then(handleResponse)
     .then(response => {
       return response;
@@ -60,15 +63,18 @@ function getPostLikes(postId) {
 
 function getPostsByHashtag(hashtag, queryParams) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ hashtag, ...queryParams })
   };
 
-  return fetch("/api/post/getPostsByHashtag/", requestOptions)
+  return fetch(urlapi+"/api/post/getPostsByHashtag/", requestOptions)
     .then(handleResponse)
     .then(response => {
       return response.data;
@@ -77,15 +83,18 @@ function getPostsByHashtag(hashtag, queryParams) {
 
 function getPostsByLocation(coordinates, queryParams) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ coordinates, ...queryParams })
   };
 
-  return fetch("/api/post/getPostsByLocation/", requestOptions)
+  return fetch(urlapi+"/api/post/getPostsByLocation/", requestOptions)
     .then(handleResponse)
     .then(response => {
       return response.data;
@@ -94,15 +103,18 @@ function getPostsByLocation(coordinates, queryParams) {
 
 function deletePost(postId) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({ postId })
   };
 
-  return fetch("/api/post/delete/", requestOptions)
+  return fetch(urlapi+"/api/post/delete/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -169,7 +181,7 @@ function addPost(postData) {
     body: jsondata
   };
 
-  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/post/addPost/", requestOptions)
+  return fetch(urlapi+"/api/post/addPost/", requestOptions)
   .then((response) => response.json())
     .catch(
       error => {
@@ -294,7 +306,7 @@ function likePost(postId, authorId) {
     body: JSON.stringify({ postId, authorId })
   };
 
-  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/post/likePost/", requestOptions)
+  return fetch(urlapi+"/api/post/likePost/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -303,6 +315,7 @@ function likePost(postId, authorId) {
 
 function getPost(postId) {
   const requestOptions = {
+    mode:"cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -313,7 +326,7 @@ function getPost(postId) {
     body: JSON.stringify({ postId })
   };
 
-  return fetch("http://localhost:5000/socialtravelapp-e6988/us-central1/app/api/post/getPost/", requestOptions)
+  return fetch(urlapi+"/api/post/getPost/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;

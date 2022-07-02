@@ -51,7 +51,7 @@ const LikeComment = ({
         }
         onClose={handleClose}
       >
-        <Modal.Header>Likes</Modal.Header>
+        <Modal.Header>Me gustas</Modal.Header>
         <Modal.Content scrolling>
           <Modal.Description>
             <List verticalAlign="middle" size="huge">

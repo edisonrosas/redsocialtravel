@@ -22,7 +22,7 @@ class LocationPage extends Component {
         })
       );
     }
-    document.title = "Location Page | social-network";
+    document.title = "Ubicaciones | TravelGo";
   };
 
   fetchData = () => {
@@ -54,7 +54,7 @@ class LocationPage extends Component {
         <Link to={"/p/" + post._id} key={post._id}>
           <div className="gallery-item">
             <img
-              src={`/images/post-images/thumbnail/${post.photo}`}
+              src={post.photo}
               className="gallery-image"
               alt=""
             />
@@ -62,11 +62,11 @@ class LocationPage extends Component {
             <div className="gallery-item-info">
               <ul>
                 <li className="gallery-item-likes">
-                  <span className="visually-hidden">Likes:</span>
+                  <span className="visually-hidden">Me gustas:</span>
                   <Icon name="heart" /> {post.likes}
                 </li>
                 <li className="gallery-item-comments">
-                  <span className="visually-hidden">Comments:</span>
+                  <span className="visually-hidden">Comentarios:</span>
                   <Icon name="comment" /> {post.comments}
                 </li>
               </ul>
@@ -97,7 +97,7 @@ class LocationPage extends Component {
           <div>
             <p style={{ fontSize: "2rem", paddingBottom: "1%" }}>
               {" "}
-              {totalPostsByLocation} posts
+              {totalPostsByLocation} publicaciones
             </p>
             <Divider></Divider>
             <InfiniteScroll
@@ -105,7 +105,7 @@ class LocationPage extends Component {
               dataLength={locationPosts.length} //This is important field to render the next data
               next={this.fetchData}
               hasMore={hasMore}
-              loader={<h4>Loading...</h4>}
+              loader={<h4>Cargando...</h4>}
             >
               {locationPosts}
             </InfiniteScroll>

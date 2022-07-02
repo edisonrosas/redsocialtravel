@@ -10,6 +10,7 @@ import {
   extractImageFileExtensionFromBase64,
   base64StringtoFile
 } from "../reusable/ReusableUtils";
+//var socket  = require( 'socket.io' );
 
 const imageMaxSize = 10485760; // bytes 10MB
 const acceptedFileTypes =
@@ -43,6 +44,7 @@ class MessengerInput extends Component {
   };
 
   handleChange = e => {
+    console.log(this.props)
     const {
       socket,
       chat: { roomId, currentRoom }
@@ -170,6 +172,7 @@ class MessengerInput extends Component {
   render() {
     const { value } = this.state;
     const display = this.state.showPicker ? "grid" : "none";
+    console.log(this.props)
     return (
       <div className="message-input">
         <div

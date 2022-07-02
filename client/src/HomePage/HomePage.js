@@ -6,6 +6,7 @@ import  { Navbar }  from "../components/Navbar";
 //
 class HomePage extends Component {
   componentDidMount = () => {
+    console.log(this.props)
     document.title = "Viajes - Red Social";
   };
 

@@ -198,7 +198,7 @@ function getPost(postId) {
     postService.getPost(postId).then(
       response => {
         document.title =
-          response.post[0].author[0].username + "'s post | social-network";
+           "Publicación  de "+response.post[0].author[0].username + " | social-network";
         dispatch(success(postConstants.GET_POST, response.post));
         dispatch({
           type: postConstants.INIT_COMMENT,

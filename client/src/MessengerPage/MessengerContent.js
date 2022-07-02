@@ -104,10 +104,20 @@ class MessengerContent extends Component {
           </Dimmer>
         ) : null}
         <div className="contact-profile">
-          <img
-            src={`/images/profile-picture/100x100/${currentRoom.user.profilePicture}`}
-            alt=""
-          />
+        {currentRoom.user.profilePicture=== "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt=""
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={currentRoom.user.profilePicture}
+                                   alt=""
+                                 />
+                                  )}
+
+
           <p>{currentRoom.user.firstName + " " + currentRoom.user.lastName}</p>
           <div className="social-media">
             <Popup
@@ -147,10 +157,18 @@ class MessengerContent extends Component {
             {messages}
             {content.isTyping ? (
               <li className="sent" key={currentRoom.user._id}>
-                <img
-                  src={`/images/profile-picture/100x100/${currentRoom.user.profilePicture}`}
-                  alt=""
-                />
+                    {currentRoom.user.profilePicture=== "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt=""
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={currentRoom.user.profilePicture}
+                                   alt=""
+                                 />
+                                  )}
                 <p>typing...</p>
               </li>
             ) : null}

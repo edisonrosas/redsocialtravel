@@ -6,7 +6,8 @@ import hashtag from "linkifyjs/plugins/hashtag";
 import mention from "linkifyjs/plugins/mention";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
+import 'dayjs/locale/es'
+dayjs.locale("es");
 dayjs.extend(relativeTime);
 
 hashtag(linkify);
@@ -31,7 +32,7 @@ const linkifyOptions = {
 
 function ShowImage({ show, image }) {
   return show ? (
-    <img src={`/images/profile-picture/100x100/${image}`} alt="" />
+    <img src={image} alt="" />
   ) : (
     <div></div>
   );

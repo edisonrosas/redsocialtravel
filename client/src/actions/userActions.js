@@ -237,10 +237,16 @@ function getUserData(queryParams) {
       }
     ).then((res) => {
         console.log(res)
-        if (res.user ===  undefined){
+        if ( res === undefined){
+          dispatch(failure(res.message));
+          history.push("/login");
+           
+        }else{
+          if (res.user ===  undefined) {
             dispatch(failure(res.message));
             dispatch(alertActions.error(res.message));
-        }else{
+            history.push("/login");
+          }
          // if(res.user.posts === undefined){
          //   history.push("/login");
           

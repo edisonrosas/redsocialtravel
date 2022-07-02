@@ -37,16 +37,84 @@ class MessengerSidePanel extends Component {
   };
 
   render() {
+
+    console.log(this.props)
     const { user, rooms, searchedRooms, roomId } = this.props;
     let renderRooms = searchedRooms ? searchedRooms : rooms;
+   // console.log(render)
     const usersList = renderRooms.map(room => {
-      const member = room.members.filter(
-        member => member._id !== user.data._id
-      );
+     // console.log(user.data._id)
+     // console.log(room)
+
+      const member = Object.keys(room.members).reduce(function (filtered, key) {
+        //console.log(room.members[key])
+        //console.log(room.members[key]._id)
+       // console.log(room.members[key]._id !== user.data._id)
+     //  console.log(user.data._id)
+     //  console.log(room.memberskey)
+   //  console.log(room.members[key]._id !== user.data._id)
+        if (room.members[key]._id !== user.data._id) {
+         // console.log(filtered[key])
+         // console.log(user.data._id)
+         //console.log(room.members[key])
+          //console.log(room.members[key])
+          filtered[key] = room.members[key]
+          //console.log(filtered[key])
+
+         /* return (
+            <li
+            className={room._id === roomId ? "contact active" : "contact"}
+            key={room._id}
+            onClick={() => this.changeRoom({ ...room, user: { ...room.members[key][0] } })}
+          >
+            <div className="wrap">
+              <span
+                className={`contact-status ${room.members[key].activityStatus}`}
+              ></span>
+              <img
+                src={room.members[key].profilePicture}
+                alt=""
+              />
+              <div className="meta">
+                <p className="name">
+                  {room.members[key].firstName + " " + room.members[key].lastName}
+                </p>
+                <p className="preview">{message}</p>
+              </div>
+            </div>
+          </li>
+          )*/
+
+          return filtered[key];
+          //console.log(filtered)
+        }
+        return filtered;
+      }, {});
+     
+      console.log(member)
+    
+      //const result = room.members.filter(checkAdult);
+      /*
+      function checkAdult(age) {
+        console.log(age)
+        console.log(age._id !== user.data._id)
+        return age._id !== user.data._id;
+      }
+      console.log(result)*/
+
+      //console.log(filtered)
+/*
+      const membe = room.members.filter(
+        member => {
+          return member._id != user.data._id
+        }
+      )
+      console.log(membe)*/
+
       let message = "...";
       if (room.lastMessage[0] && room.lastMessage[0].sender === user.data._id) {
         if (room.lastMessage[0].messageType === "text") {
-          message = "You: " + room.lastMessage[0].text;
+          message = "Tú: " + room.lastMessage[0].text;
         } else {
           message = "You sent image ";
         }
@@ -57,29 +125,45 @@ class MessengerSidePanel extends Component {
           message = "Image ";
         }
       }
-      return (
-        <li
-          className={room._id === roomId ? "contact active" : "contact"}
-          key={room._id}
-          onClick={() => this.changeRoom({ ...room, user: { ...member[0] } })}
-        >
-          <div className="wrap">
-            <span
-              className={`contact-status ${member[0].activityStatus}`}
-            ></span>
-            <img
-              src={`/images/profile-picture/100x100/${member[0].profilePicture}`}
-              alt=""
-            />
-            <div className="meta">
-              <p className="name">
-                {member[0].firstName + " " + member[0].lastName}
-              </p>
-              <p className="preview">{message}</p>
+      //return member
+     
+      if (member.username !== undefined){
+        return (
+          <li
+            className={room._id === roomId ? "contact active" : "contact"}
+            key={room._id}
+            onClick={() => this.changeRoom({ ...room, user: { ...member } })}
+          >
+            <div className="wrap">
+              <span
+                className={`contact-status ${member.activityStatus}`}
+              ></span>
+
+{member.profilePicture=== "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt=""
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={member.profilePicture}
+                                   alt=""
+                                 />
+                                  )}
+
+
+              <div className="meta">
+                <p className="name">
+                  {member.username + " " + member.lastName}
+                </p>
+                <p className="preview">{message}</p>
+              </div>
             </div>
-          </div>
-        </li>
-      );
+          </li>
+        );
+      }
+   
     });
 
     return (
@@ -88,7 +172,7 @@ class MessengerSidePanel extends Component {
           <div className="wrap">
             <img
               id="profile-img"
-              src={`/images/profile-picture/100x100/${user.data.profilePicture}`}
+              src={user.data.profilePicture}
               className="online"
               alt=""
             />

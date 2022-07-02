@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { userActions } from "../actions/userActions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
+import 'dayjs/locale/es';
+dayjs.locale("es");
 dayjs.extend(relativeTime);
 
 class NewUsersList extends Component {
@@ -56,7 +57,7 @@ class NewUsersList extends Component {
             </List.Header>
 
             <span style={{ color: "#757575" }}>
-               Conectado hace {dayjs(user.date).fromNow()}
+               Conectado {dayjs(user.date).fromNow()}
             </span>
           </List.Content>
         </List.Item>

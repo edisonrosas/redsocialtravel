@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class NotFoundPage extends Component {
   componentDidMount = () => {
-    document.title = "Page not found | social-network";
+    document.title = "Pagina no encontrada | Travel Go";
   };
 
   render() {
@@ -15,7 +15,7 @@ class NotFoundPage extends Component {
             color: "#262626"
           }}
         >
-          Page Not Found
+          Pagina no encontrada
         </div>
       </div>
     );

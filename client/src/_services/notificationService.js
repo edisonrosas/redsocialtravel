@@ -2,7 +2,7 @@ export const notificatonService = {
   readNotifications,
   fetchNotifications
 };
-
+const urlapi = "http://localhost:5000/socialtravelapp-e6988/us-central1/app";
 function logout() {
   // remove user from local storage to log user out
   localStorage.removeItem("user");
@@ -10,9 +10,12 @@ function logout() {
 
 function readNotifications(notificationIds) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -20,7 +23,7 @@ function readNotifications(notificationIds) {
     })
   };
 
-  return fetch("/api/notification/readNotifications/", requestOptions)
+  return fetch(urlapi +"/api/notification/readNotifications/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -29,9 +32,12 @@ function readNotifications(notificationIds) {
 
 function fetchNotifications(queryOptions) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -39,7 +45,7 @@ function fetchNotifications(queryOptions) {
     })
   };
 
-  return fetch("/api/notification/getNotifications/", requestOptions)
+  return fetch(urlapi +"/api/notification/getNotifications/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res.data;

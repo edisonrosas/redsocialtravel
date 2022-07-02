@@ -7,6 +7,7 @@ export const chatService = {
   call,
   answer
 };
+const urlapi = "http://localhost:5000/socialtravelapp-e6988/us-central1/app";
 
 function logout() {
   // remove user from local storage to log user out
@@ -15,25 +16,32 @@ function logout() {
 
 function getChatRooms() {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     }
   };
 
-  return fetch("/api/chat/getChatRooms/", requestOptions)
+  return fetch(urlapi+"/api/chat/getChatRooms/", requestOptions)
     .then(handleResponse)
     .then(res => {
+      console.log(res)
       return res;
     });
 }
 
 function readMessages(params) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -41,7 +49,7 @@ function readMessages(params) {
     })
   };
 
-  return fetch("/api/chat/readMessages/", requestOptions)
+  return fetch(urlapi+"/api/chat/readMessages/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -50,9 +58,12 @@ function readMessages(params) {
 
 function getMessagesForRoom(room) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -60,7 +71,7 @@ function getMessagesForRoom(room) {
     })
   };
 
-  return fetch("/api/chat/getMessagesForRoom/", requestOptions)
+  return fetch(urlapi+"/api/chat/getMessagesForRoom/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -69,9 +80,12 @@ function getMessagesForRoom(room) {
 
 function sendMessage(params) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -79,7 +93,7 @@ function sendMessage(params) {
     })
   };
 
-  return fetch("/api/chat/sendMessage/", requestOptions)
+  return fetch(urlapi+"/api/chat/sendMessage/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -88,14 +102,17 @@ function sendMessage(params) {
 
 function sendImage(data) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
-      Authorization: JSON.parse(localStorage.getItem("user")).token
+      Authorization: JSON.parse(localStorage.getItem("user")).token,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
     },
     body: data
   };
 
-  return fetch("/api/chat/sendImage/", requestOptions)
+  return fetch(urlapi+"/api/chat/sendImage/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -104,9 +121,12 @@ function sendImage(data) {
 
 function call(data) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -114,7 +134,7 @@ function call(data) {
     })
   };
 
-  return fetch("/api/chat/call/", requestOptions)
+  return fetch(urlapi+"/api/chat/call/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;
@@ -123,9 +143,12 @@ function call(data) {
 
 function answer(data) {
   const requestOptions = {
+    mode: "cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: JSON.parse(localStorage.getItem("user")).token
     },
     body: JSON.stringify({
@@ -133,7 +156,7 @@ function answer(data) {
     })
   };
 
-  return fetch("/api/chat/answer/", requestOptions)
+  return fetch(urlapi+"/api/chat/answer/", requestOptions)
     .then(handleResponse)
     .then(res => {
       return res;

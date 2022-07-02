@@ -3,7 +3,7 @@ import { Button, Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { userActions } from "../actions/userActions";
 import Messages from "../components/Messages";
-
+import { Link } from "react-router-dom";
 class PasswordResetPage extends Component {
   state = {
     password: "",
@@ -13,7 +13,7 @@ class PasswordResetPage extends Component {
   };
 
   componentDidMount = () => {
-    document.title = "Password reset | social-network";
+    document.title = "Reestablecer contraseña | TravelGo";
     this.setState({ jwt: this.props.match.params.jwt });
   };
 
@@ -63,27 +63,36 @@ class PasswordResetPage extends Component {
           onSubmit={this.handleSubmit}
         >
           <Form.Field>
-            <label>New password</label>
+            <label>Nueva Contraseña</label>
             <input
               onChange={this.handleChange}
               name="password"
               type="password"
-              placeholder="New password"
+              placeholder="Nueva contraseña"
               value={password}
             />
           </Form.Field>
           <Form.Field>
-            <label>Re-type password</label>
+            <label>Repite Nueva Contraseña</label>
             <input
               onChange={this.handleChange}
               name="retypepassword"
               type="password"
-              placeholder="Re-type password"
+              placeholder="Repite nueva contraseña"
               value={retypepassword}
             />
-          </Form.Field>
+          </Form.Field> 
+         
+          <div className="nav-item ">
+            <div class="btn btn-primary">
+            <a href="http://localhost:3000/login">Iniciar Sesion</a>
+            </div>
+          </div>
+         
+       
+
           <Button disabled={submitDisabled} fluid type="submit">
-            Submit
+            Reestablecer
           </Button>
           <Messages alert={alert} />
         </Form>

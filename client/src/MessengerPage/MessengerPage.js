@@ -7,7 +7,7 @@ import { MessengerContent } from "./MessengerContent";
 
 class MessengerPage extends Component {
   componentDidMount = () => {
-    document.title = "Messages | social-network";
+    document.title = "Chat | social-network";
   };
 
   render() {

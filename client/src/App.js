@@ -40,7 +40,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log(this.props)
     const { authentication } = this.props;
 
     return (

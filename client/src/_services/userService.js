@@ -17,6 +17,7 @@ export const userService = {
 
 
 const urlapi = "http://localhost:5000/socialtravelapp-e6988/us-central1/app";
+
 function login(email, password) {
 
 
@@ -101,7 +102,7 @@ function resetPassword(data) {
     body: JSON.stringify({ ...data }),
   };
 
-  return fetch("/api/user/passwordreset", requestOptions)
+  return fetch(urlapi+"/api/user/passwordreset", requestOptions)
     .then(handlePasswordResetResponse)
     .then((res) => {
       return res;
@@ -117,7 +118,7 @@ function sendVerificationEmail(email) {
     'Access-Control-Allow-Methods': 'POST'},
     body: JSON.stringify({ email }),
   };
-  return fetch("/api/user/sendVerificationEmail/", requestOptions).then(
+  return fetch(urlapi+"/api/user/sendVerificationEmail/", requestOptions).then(
     handleResponse
   );
 }
@@ -131,7 +132,7 @@ function sendforgotPasswordEmail(email) {
     'Access-Control-Allow-Methods': 'POST'},
     body: JSON.stringify({ email }),
   };
-  return fetch("/api/user/sendforgotPasswordEmail/", requestOptions).then(
+  return fetch(urlapi+"/api/user/sendforgotPasswordEmail/", requestOptions).then(
     handleResponse
   );
 }

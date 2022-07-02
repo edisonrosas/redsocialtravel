@@ -36,7 +36,18 @@ function renderSuggestion({ firstName, lastName, username, profilePicture }) {
   return (
     <Link to={"/" + username}>
       <span className={"suggestion-content " + username}>
-        <img alt="" src={profilePicture} />
+      {profilePicture === "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt=""
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={profilePicture}
+                                   alt=""
+                                 />
+                                  )}
         <span className="autosuggestion-name">
           {username}
           <p>{`${firstName} ${lastName}`}</p>
@@ -54,7 +65,18 @@ function renderSuggestionForTags({
 }) {
   return (
     <span className={"suggestion-content " + username}>
-      <img alt="" src={profilePicture} />
+        {profilePicture === "person.png" ? (
+                                     <img
+                                     src='https://cdn-icons-png.flaticon.com/512/711/711769.png'
+                                     alt="foto_perfil.png"
+                                   />
+                                  
+                                  ) : (
+                                    <img
+                                   src={profilePicture}
+                                   alt=""
+                                 />
+                                  )}
       <span className="autosuggestion-name">
         {username}
         <p>{`${firstName} ${lastName}`}</p>

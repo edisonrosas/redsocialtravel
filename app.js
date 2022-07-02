@@ -42,11 +42,11 @@ require("./models/ChatRoom");
 require("./models/Message");
 
 const app = express();
+/*
 const validateFirebaseIdToken = async (req, res, next) => {
   functions.logger.log('Check if request is authorized with Firebase ID token');
 
-  if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) &&
-      !(req.cookies && req.cookies.__session)) {
+  if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) && !(req.cookies && req.cookies.__session)) {
     functions.logger.error(
       'No Firebase ID token was passed as a Bearer token in the Authorization header.',
       'Make sure you authorize your request by providing the following HTTP header:',
@@ -83,32 +83,50 @@ const validateFirebaseIdToken = async (req, res, next) => {
     res.status(403).send('Unauthorized');
     return;
   }
-};
+};*/
 
 app.use(cors);
 app.use(cookieParser);
-app.use(validateFirebaseIdToken);
+//app.use(validateFirebaseIdToken);
 const io = socket_io();
 
 const userController = require("./controllers/userController");
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); 
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, Access-Control-Allow-Credentials');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
 
-app.io = io;
+/*
 
-app.set("socketio", io);
+imagen:
+titulo:
+descripcion:
+direccion:
+
+
+*/ 
 
 io.use((socket, next) => {
+  console.log(socket);
   if (socket.handshake.query && socket.handshake.query.token) {
     const token = socket.handshake.query.token.split(" ")[1];
-    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+    console.log(token)
+    jwt.verify(token, "secret", (err, decoded) => {
       if (err) return next(new Error("Authentication error"));
       socket.userData = decoded;
       next();
     });
   } else {
+    console.log("asdasd")
     next(new Error("Authentication error"));
   }
 }).on("connection", (socket) => {
-  // Connection now authenticated to receive further events
+  console.log("asdasd")
+  // Connection 
   socket.join(socket.userData.userId);
   io.in(socket.userData.userId).clients((err, clients) => {
     userController.changeStatus(socket.userData.userId, clients, io);
@@ -128,6 +146,10 @@ io.use((socket, next) => {
     });
   });
 });
+
+app.set("socketio", io);
+app.io = io;
+
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -152,9 +174,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(logger("dev"));
 }
 app.use(express.static("public"));
-/*app.get("*", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
-});*/
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
